@@ -1,5 +1,7 @@
-class Buscaminas{
+export class Buscaminas{
     constructor(rows, mines){
+        this.bloqueado = false;
+        this.tabla = null;
         this.filas = rows;
         this.nMinas = mines;
         this.matriz = new Array(this.filas);
@@ -8,89 +10,82 @@ class Buscaminas{
             this.matriz[i] = new Array(this.filas);
             this.matrizVista[i] = new Array(this.filas);
         }
+        this.creaTabla();
         this.colocaMinas();
         this.colocarNumeros();
     }
     rellenarVista(){
         for (let i = 0; i < this.filas; i++){
             for(let j = 0; j < this.filas; j++){
-                    this.matriz[i][j] = {valor: "-", descubierto:false};
+                    this.matriz[i][j] = "-";
                 }
-            }
         }
+    }
+    juegoAcabado(){
+        return this.bloqueado;
+    }
+    bloquear(){
+        this.bloqueado = true;
+    }
     descubrir(fila,columna){
-        //console.log(fila,columna);
-        this.matrizVista[fila][columna] = this.matriz[fila][columna];
-        //this.actualizaVista();
-        if(this.esBlanco(fila,columna)){
-            this.descubrirColindantes(fila,columna);
+        if(!this.bloqueado){
+            this.matrizVista[fila][columna] = this.matriz[fila][columna];
+            return this.matriz[fila][columna]; 
         }
-        this.actualizaVista();
-
     }
 
     esMina(fila,columna){
-        if(this.matriz[fila][columna] == '*')
-            return true;
-        return false;
+        return this.matriz[fila][columna] == '*';
     }
 
     esBlanco(fila,columna){
-        if(this.matriz[fila][columna] == '0')
-            return true;
-        return false;
+        return this.matriz[fila][columna] == '0';
     }
 
-    descubrirColindantes(fila,columna){
-        let colindantes = this.obtenerColindantes(fila,columna);
-        colindantes.forEach((colindante)=>{
-            let fila = colindante[0];
-            let columna = colindante[1];
-            if (fila>=0 && columna>=0 && fila<=9 && columna<= 9 && this.matrizVista[fila][columna] == undefined){
-                this.descubrir(fila,columna);
-            }
-        });
+    getMatrizVista(){
+        return this.matrizVista;
     }
-
     colocaMinas(){
         for(let i = 0; i < this.nMinas; i++){
             let filaAleatoria = parseInt(Math.random()*this.filas);
             let columnaAleatoria = parseInt(Math.random()*this.filas);
-            if(this.matriz[filaAleatoria][columnaAleatoria] == '*'){
-                i--;
-            }
-            else{
-                this.matriz[filaAleatoria][columnaAleatoria] = '*';
-            }
+            this.matriz[filaAleatoria][columnaAleatoria] == '*' ? i-- : this.matriz[filaAleatoria][columnaAleatoria] = '*';
         }
     }
-
-    actualizaTabla(){
-        let tabla = "<table>";
-        for(let i = 0; i < this.filas; i++){
-            tabla += "<tr>"
+    descubrirMinas(){
+        for (let i = 0; i < this.filas; i++){
             for(let j = 0; j < this.filas; j++){
-                tabla += (typeof this.matriz[i][j] == "undefined" ? "<td>0</td>" : "<td>"+this.matriz[i][j]+"</td>");
+                if(this.matriz[i][j] == "*"){
+                    this.matrizVista[i][j] = this.matriz[i][j];
+                    let celda = this.tabla.children[0].children[i].children[j];
+                    celda.innerHTML = this.matriz[i][j];
+                    celda.style.backgroundColor = "red";
+                    celda.style.color = "black";
+                }
             }
-            tabla += "</tr>"
         }
-        tabla += "</table>"
-        document.getElementById("buscaminas").innerHTML = tabla;
     }
-
-    actualizaVista(){
-        let tabla = "<table>";
+    getTabla(){
+        return this.tabla;
+    }
+    creaTabla(){
+        let tabla = document.createElement("table");
+        tabla.id = "juego";
+        let tbody = document.createElement("tbody");
         for(let i = 0; i < this.filas; i++){
-            tabla += "<tr>"
+            let fila = document.createElement("tr");
             for(let j = 0; j < this.filas; j++){
-                tabla += (typeof this.matrizVista[i][j] == "undefined" ? "<td>-</td>" : "<td>"+this.matrizVista[i][j]+"</td>");
+                let celda = document.createElement("td");
+                celda.style.backgroundColor = "#949494";
+                celda.className = "celda";
+                fila.appendChild(celda);
             }
-            tabla += "</tr>"
+            tbody.appendChild(fila);
         }
-        tabla += "</table>"
-        document.getElementById("buscaminasVista").innerHTML = tabla;
+        tabla.appendChild(tbody);
+        this.tabla = tabla;
+        //document.getElementById(div).appendChild(tabla);
     }
-
 
     obtenerColindantes(fila,columna){
         let colindantes = new Array();
@@ -122,8 +117,5 @@ class Buscaminas{
             }
         }
     }
+    
 }
-
-var buscaminas = new Buscaminas(10,10);
-buscaminas.actualizaVista();
-//buscaminas.actualizaTabla();
