@@ -11,6 +11,7 @@ function descubrirColindantes(fila,columna){
         }
     });
 }
+
 function hayBandera(fila,columna){
     let tabla = buscaminas.getTabla();
     let celda = tabla.children[0].children[fila].children[columna];
@@ -33,6 +34,7 @@ function colocarBandera(fila,columna){
         }
     }
 }
+
 function descubrirCelda(fila,columna){
     if(!buscaminas.juegoAcabado() && !hayBandera(fila,columna)){
         let queHay = buscaminas.descubrir(fila,columna);
@@ -67,11 +69,27 @@ function descubrirCelda(fila,columna){
             case "*":
                 celda.style.backgroundColor = "red";
                 celda.style.color = "black";                   
-        }   
+        }
+        if(buscaminas.juegoGanado()){
+            juegoGanado();
+        }
     }
 }
 
+function juegoGanado(){
+    document.getElementById("menu-titulo").innerHTML = "<h3 id=\"menu-titulo\">Has ganado!</h3>";
+    document.getElementById("fondomenu").style.visibility = "visible";
+    document.getElementById("menu").style.visibility = "visible";
+    let boton = document.createElement('button');
+    boton.id = "botonReiniciar";
+    let texto = document.createTextNode("Jugar de nuevo");
+    boton.appendChild(texto);
+    boton.onclick = iniciarJuego;
+    document.getElementById("menu").appendChild(boton);
+}
+
 function acabar(){
+    document.getElementById("menu-titulo").innerHTML = "<h3 id=\"menu-titulo\">Has perdido...</h3>";
     document.getElementById("fondomenu").style.visibility = "visible";
     document.getElementById("menu").style.visibility = "visible";
     let boton = document.createElement('button');

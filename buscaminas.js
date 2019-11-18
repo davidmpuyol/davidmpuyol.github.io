@@ -1,6 +1,7 @@
 export class Buscaminas{
     constructor(rows, mines){
         this.bloqueado = false;
+        this.acabado = false;
         this.tabla = null;
         this.filas = rows;
         this.nMinas = mines;
@@ -18,7 +19,7 @@ export class Buscaminas{
         for (let i = 0; i < this.filas; i++){
             for(let j = 0; j < this.filas; j++){
                     this.matriz[i][j] = "-";
-                }
+            }
         }
     }
     juegoAcabado(){
@@ -30,8 +31,29 @@ export class Buscaminas{
     descubrir(fila,columna){
         if(!this.bloqueado){
             this.matrizVista[fila][columna] = this.matriz[fila][columna];
-            return this.matriz[fila][columna]; 
+            console.log(this.matrizVista);
+            return this.matriz[fila][columna];
         }
+    }
+
+    juegoGanado(){
+        if(!this.bloqueado){
+            let contador = 0;
+            for (let i = 0; i < this.filas; i++){
+                for(let j = 0; j < this.filas; j++){
+                    if(this.matrizVista[i][j] == undefined){
+                        contador++;
+                    }
+                }
+            }
+            console.log(contador);
+            if(contador == this.nMinas){
+                this.acabado = true;
+                this.bloquear();
+                return true;
+            }
+        }
+        return false;
     }
 
     esMina(fila,columna){
@@ -84,7 +106,6 @@ export class Buscaminas{
         }
         tabla.appendChild(tbody);
         this.tabla = tabla;
-        //document.getElementById(div).appendChild(tabla);
     }
 
     obtenerColindantes(fila,columna){
