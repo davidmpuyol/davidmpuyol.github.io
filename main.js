@@ -110,6 +110,7 @@ function iniciarJuego(){
     document.getElementById("buscaminasVista").appendChild(buscaminas.getTabla());
     var celdas = document.getElementsByClassName("celda");
     function click(event){
+        event.preventDefault;
         tiempoInicio = new Date();
     }
     for(let i = 0; i< celdas.length; i++){
