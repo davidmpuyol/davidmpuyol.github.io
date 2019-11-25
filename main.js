@@ -144,6 +144,8 @@ function iniciarJuego(){
     for(let i = 0; i< celdas.length; i++){
         celdas[i].onclick = click;
         celdas[i].oncontextmenu = click;
+        celdas[i].ontouchstart = touchStart;
+        celdas[i].ontouchend = touchEnd;
     }
     document.getElementById("time").innerHTML = "0:0:0";
     function aumentarSegundos(){
