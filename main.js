@@ -1,5 +1,6 @@
 import {Buscaminas} from "./buscaminas.js";
 
+var tiempoInicio, tiempoFin;
 function descubrirColindantes(fila,columna){
     let colindantes = buscaminas.obtenerColindantes(fila,columna);
     colindantes.forEach((colindante)=>{
@@ -109,21 +110,30 @@ function iniciarJuego(){
     document.getElementById("buscaminasVista").appendChild(buscaminas.getTabla());
     var celdas = document.getElementsByClassName("celda");
     function click(event){
+        tiempoInicio = new Date();
+    }
+    for(let i = 0; i< celdas.length; i++){
+        //celdas[i].onclick = click;
+        celdas[i].onmousedown = click;
+        celdas[i].onmouseup = soltado;
+        celdas[i].oncontextmenu = click;
+    }
+
+    function soltado(event){
         event.preventDefault();
-        console.log(event);
+        tiempoFin = new Date();
+        let diferencia = tiempoFin - tiempoInicio;
         let tabla = event.parentElement;
         let fila = event.target.parentElement.rowIndex;
         let columna = event.target.cellIndex;
-        if(event.button == 2){
+        if(diferencia >= 1000){
+            colocarBandera(fila,columna);
+        }else if(event.button == 2){
             colocarBandera(fila,columna);
         }
         else{
             descubrirCelda(fila,columna);
         }
-    }
-    for(let i = 0; i< celdas.length; i++){
-        celdas[i].onclick = click;
-        celdas[i].oncontextmenu = click;
     }
     document.getElementById("time").innerHTML = "0:0:0";
     function aumentarSegundos(){

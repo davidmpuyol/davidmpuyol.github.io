@@ -31,7 +31,6 @@ export class Buscaminas{
     descubrir(fila,columna){
         if(!this.bloqueado){
             this.matrizVista[fila][columna] = this.matriz[fila][columna];
-            console.log(this.matrizVista);
             return this.matriz[fila][columna];
         }
     }
@@ -46,7 +45,6 @@ export class Buscaminas{
                     }
                 }
             }
-            console.log(contador);
             if(contador == this.nMinas){
                 this.acabado = true;
                 this.bloquear();
