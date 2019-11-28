@@ -1,0 +1,98 @@
+table{
+    border-collapse:collapse;
+    border-spacing:0;
+}
+html{
+    width:100%;
+    background-color:white;
+    margin:0;
+    padding:0;
+}
+td:active, table td:hover{
+    background-color:white;
+}
+table td{
+    cursor:pointer;
+    text-align:center;
+    padding: 0px;
+    padding-bottom:0px;
+    width:28px;
+    height:28px;
+    border: 2px solid black;
+    color:white;
+    box-sizing: border-box;
+    font-weight:bold;
+}
+
+#buscaminasVista{
+    margin: 0 auto;
+}
+#time{
+    color: black;
+    width: 220px;
+    margin: 0 auto;
+    text-align:center;
+}
+#result{
+    color: red;
+    width: 220px;
+    margin: 0 auto;
+    text-align:center;
+    font-size:40px;
+}
+
+h2{
+    color:red;
+    text-align:center;
+}
+#result{
+    color:black;
+    position:relative;
+    bottom:50px;
+}
+#fondomenu{
+    visibility:hidden;
+    left:0px;
+    top:0px;
+    width:100%;
+    height:100%;
+    opacity:0.5;
+    position:absolute;
+    background-color:black;
+}
+body{
+    width:80%;
+    height:100%;
+    display:flex;
+    flex-direction:column;
+    flex-flow: space-evenly;
+    justify-content:center;
+    align-items:center;
+    background-color:white;
+    margin: 0 auto;
+    padding:0;
+}
+#menu{
+    flex:1;
+    text-align:center;
+    visibility:hidden;
+    opacity:0.7;
+    width:40%;;
+    height:150px;
+    background-color: white;
+    border: 3px solid black;
+    position:fixed;
+
+}
+
+#menu h3{
+    color:red;
+}
+#menu button{
+    border: 2px solid black;
+    height:40px;
+}
+
+#time{
+    font-weight:bold;
+}
