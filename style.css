@@ -1,18 +1,8 @@
-body{
-    box-sizing:border-box;
-    display:flex;
-    width:100vw;
-    margin:0;
-    height:100vh;
-    flex-flow: row nowrap;
-    align-content:center;
-    align-items:center;
-    justify-content:center;
-    background-color:rgb(26, 26, 26);
-    color:white;
-    font-size:5vw;
-    font-weight:bold;
+.progress{
+    height:50px;
 }
-body:first-child{
-    height:20%;
+.skill-name{
+    position:absolute;
+    color:white;
+    width:100%;
 }
