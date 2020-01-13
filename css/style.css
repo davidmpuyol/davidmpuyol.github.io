@@ -1,7 +1,30 @@
 .progress{
-    height:50px!important;
+    height:20%;
+}
+.div-barras{
+    height:85%;
 }
 .skill-name{
-    position:absolute;
     color:white;
+}
+.seccion{
+    height:100vh;
+}
+#foto{
+    height: 300px;
+}
+.informacion{
+    height:100%;
+}
+.informacion-titulo{
+    height:10%;
+}
+.col-barras{
+    height:50%;
+}
+.row-barras{
+    height:100%;
+}
+.ultimo-col-barras{
+    height:5%;
 }
